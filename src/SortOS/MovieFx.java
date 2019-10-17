@@ -1,3 +1,6 @@
+package SortOS;
+
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -114,7 +117,7 @@ public class MovieFx extends Application {
     }
     private void deleteMovie(){
         //Remove movie
-        Movie m = lvMovie.getSelectionModel().getSelectedItems();
+        Movie m = lvMovie.getSelectionModel().getSelectedItems().get(0);
         m.setTitle("");
         m.setDuration("");
         m.setDirector("");
@@ -122,13 +125,12 @@ public class MovieFx extends Application {
         m.setYear("");
     }
     private void getData(){
-        Movie m = lvMovie.getSelectionModel().getSelectedItems();
-
-        txtTitle.setText(m.Title.getText());
-        txtDuration.setText(m.Duration.getText());
-        txtDirector.setText(m.Director.getText());
-        txtClassification.setText(m.Classification.getText());
-        txtYear.setText(m.Year.getText());
+        Movie m = lvMovie.getSelectionModel().getSelectedItems().get(0);
+        txtTitle.setText(m.getTitle());
+        txtDuration.setText(m.getDirector());
+        txtDirector.setText(m.getDuration());
+        txtClassification.setText(m.getClassification());
+        txtYear.setText(m.getYear());
 
     }
 }

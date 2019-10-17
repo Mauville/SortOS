@@ -1,4 +1,5 @@
 
+package SortOS;
 public class Alumno implements Comparable<Alumno> {
 	
 	private String nombre;

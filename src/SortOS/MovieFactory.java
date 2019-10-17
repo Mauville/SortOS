@@ -1,3 +1,4 @@
+package SortOS;
 import java.io.*;
 
 public class MovieFactory{
@@ -12,12 +13,8 @@ public class MovieFactory{
 
             FileOutputStream fos = new FileOutputStream("movies.oop");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeobject(m);
+           oos.writeObject(m);
             oos.close();
-        }
-        catch(EmptyFieldException e){
-            System.out.println(e.getMessage());
         }
         catch (FileNotFoundException fe ){
             System.out.println("File does not exist");

@@ -1,3 +1,5 @@
+package SortOS;
+
 public class Movie {
 	private String title, director, duration, year, classification;
 	
