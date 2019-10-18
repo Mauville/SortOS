@@ -9,78 +9,65 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
 public class MovieFx extends Application {
-	private TextField txtDirector, txtTitle, txtDuration, txtYear, txtClassification;
-	private ObservableList<Movie> data;
-	private ListView<Movie> lvMovie;
-	
+	private TextField txtMatricula, txtName, txtCalif, txtYear, txtClassification;
+	private ObservableList<Alumno> data;
+	private ListView<Alumno> lvAlumno;
+
 	public void start(Stage stage) throws Exception {
 		//1. Create the main node
 		BorderPane mainPane = new BorderPane();
-		
 		FlowPane contentPane = new FlowPane();
 		FlowPane controlsPane = new FlowPane();
 		mainPane.setCenter(contentPane);
 		mainPane.setBottom(controlsPane);
-		
 		//Content
-		GridPane moviePane = new GridPane();
-		Label lblTitle = new Label("Title");
-		txtTitle = new TextField();
-		moviePane.add(lblTitle, 0,0);
-		moviePane.add(txtTitle, 1,0);
+		GridPane infoPane = new GridPane();
+		Label lblName = new Label("Nombre");
+		txtName = new TextField();
+		infoPane.add(lblName, 0,0);
+		infoPane.add(txtName, 1,0);
 		
-		Label lblDirector = new Label("Director");
-		txtDirector = new TextField();
-		moviePane.add(lblDirector, 0,1);
-		moviePane.add(txtDirector, 1,1);
+		Label lblMatricula = new Label("Matrícula");
+		txtMatricula = new TextField();
+		infoPane.add(lblMatricula, 0,1);
+		infoPane.add(txtMatricula, 1,1);
 		
-		Label lblDuration = new Label("Duration");
-		txtDuration = new TextField();
-		moviePane.add(lblDuration, 0,2);
-		moviePane.add(txtDuration, 1,2);
-		
-		Label lblYear = new Label("Year");
-		txtYear = new TextField();
-		moviePane.add(lblYear, 0,3);
-		moviePane.add(txtYear, 1,3);
-		
-		Label lblClassification = new Label("Classification");
-		txtClassification = new TextField();
-		moviePane.add(lblClassification, 0,4);
-		moviePane.add(txtClassification, 1,4);
-		
-		contentPane.getChildren().add(moviePane);
+		Label lblCalif = new Label("Calificación");
+		txtCalif = new TextField();
+		infoPane.add(lblCalif, 0,2);
+		infoPane.add(txtCalif, 1,2);
+
+		contentPane.getChildren().add(infoPane);
 		
 		//List
 		data = FXCollections.observableArrayList();
-		lvMovie = new ListView<>(data);
-		contentPane.getChildren().add(lvMovie);
+		lvAlumno = new ListView<>(data);
+		contentPane.getChildren().add(lvAlumno);
 		
 		//Controls
-		Button bttnAdd = new Button("Add");
+		Button bttnAdd = new Button("Agregar");
 		controlsPane.getChildren().add(bttnAdd);
 		
-		Button bttnDelete = new Button("Delete");
+		Button bttnDelete = new Button("Borrar");
 		controlsPane.getChildren().add(bttnDelete);
 		
-		Button bttnSave = new Button("Save");
+		Button bttnSave = new Button("Actualizar");
 		controlsPane.getChildren().add(bttnSave);
 		
         bttnAdd.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
-                addMovie();
+                addStudent();
             }
         });
 
         bttnDelete.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
-                deleteMovie();
+                deleteStudent();
             }
         });
 
-        lvMovie.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        lvAlumno.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
                 getData();
             }
@@ -97,38 +84,32 @@ public class MovieFx extends Application {
 	public static void main(String[] args) {
 		launch();
 	}
-    private void addMovie(){
-        //Read the info and create an objetc
-        Movie m = new Movie();
-        m.setTitle(txtTitle.getText());
-        m.setDuration(txtDuration.getText());
-        m.setDirector(txtDirector.getText());
-        m.setClassification(txtClassification.getText());
-        m.setYear(txtYear.getText());
-        //Add the object to tmy list
-        data.add(m);
+    private void addStudent(){
+        //Read the info and create an object
+        Alumno a = new Alumno();
+        a.setNombre(txtName.getText());
+        a.setMatricula(txtMatricula.getText());
+        a.setCalif(Integer.parseInt(txtCalif.getText()));
+        //Add the object to my list
+        data.add(a);
         //Clear the form
-        txtTitle.setText("");
-        txtDuration.setText("");
-        txtDirector.setText("");
-        txtClassification.setText("");
-        txtYear.setText("");
+        txtName.setText("");
+        txtCalif.setText("");
+        txtMatricula.setText("");
     }
-    private void deleteMovie(){
+    private void deleteStudent(){
         //Remove movie
-        Movie m = lvMovie.getSelectionModel().getSelectedItems().get(0);
-        m.setTitle("");
-        m.setDuration("");
-        m.setDirector("");
-        m.setClassification("");
-        m.setYear("");
+        //Alumno a = lvAlumno.getSelectionModel().getSelectedItems().get(0);
+        ObservableList<Integer> todelete= lvAlumno.getSelectionModel().getSelectedIndices();
+        for (int i=0; i<todelete.size(); i++) {
+            data.remove(todelete.get(i));
+        }
     }
     private void getData(){
-        Movie m = lvMovie.getSelectionModel().getSelectedItems().get(0);
-        txtTitle.setText(m.getTitle());
-        txtDuration.setText(m.getDirector());
-        txtDirector.setText(m.getDuration());
-        txtClassification.setText(m.getClassification());
-        txtYear.setText(m.getYear());
+
+        Alumno a = lvAlumno.getSelectionModel().getSelectedItems().get(0);
+        txtName.setText(a.getNombre());
+        txtCalif.setText(Integer.toString(a.getCalif()));
+        txtMatricula.setText(a.getMatricula());
     }
 }
