@@ -1,4 +1,5 @@
 package SortOS;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -105,10 +106,10 @@ public class MovieFx extends Application {
         }
     }
     private void getData(){
+
         Alumno a = lvAlumno.getSelectionModel().getSelectedItems().get(0);
         txtName.setText(a.getNombre());
         txtCalif.setText(Integer.toString(a.getCalif()));
         txtMatricula.setText(a.getMatricula());
-
     }
 }
