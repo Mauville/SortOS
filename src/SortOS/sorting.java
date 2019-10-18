@@ -1,7 +1,7 @@
 package SortOS;
 
 public class sorting {
-    public static void quickSort(ListaLigada input, int initial, int last) {
+    public static void quickSort(ListaLigada<Alumno> input, int initial, int last) {
         if (initial < last) {
             int q = partition(input, initial, last);
             quickSort(input, initial, q - 1);
@@ -9,11 +9,11 @@ public class sorting {
         }
     }
 
-    private static int partition(ListaLigada input, int initial, int last) {
-        int pivot = (int) input.encontrarNodoEnElndice(input.contarElementos() - 1).getElemento();
+    private static int partition(ListaLigada<Alumno> input, int initial, int last) {
+        int pivot = (int) input.encontrarNodoEnElndice(input.contarElementos() - 1).getElemento().getCalif();
         int i = initial - 1;
         for (int j = initial; j <= last - 1; j++) {
-            if ((int) input.encontrarNodoEnElndice(j).getElemento() < pivot) {
+            if ((int) input.encontrarNodoEnElndice(j).getElemento().getCalif() < pivot) {
                 i++;
                 input.intercambiar(i, j);
             }
