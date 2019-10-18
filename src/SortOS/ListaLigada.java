@@ -1,5 +1,7 @@
 package SortOS;
 
+import java.util.List;
+
 import java.util.ArrayList;
 
 public class ListaLigada<T extends Comparable<T>> {
@@ -17,8 +19,18 @@ public class ListaLigada<T extends Comparable<T>> {
         return inicial == null;
     }
 
+
+    public ListaLigada(List lista){
+        Nodo<T> primero= new Nodo<T>((T)lista.get(0));
+        setInicial(primero);
+        for (int i=1; i<=lista.size(); i++){
+            insertarAlUltimo((T)lista.get(i));
+        }
+    }
+
     public void insertarAlInicio(T elemento) {
         Nodo<T> aInsertar = new Nodo<>(elemento);
+
         aInsertar.setSiguiente(inicial);
         inicial = aInsertar;
     }
