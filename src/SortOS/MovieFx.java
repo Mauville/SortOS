@@ -8,6 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class MovieFx extends Application {
 	private TextField txtMatricula, txtName, txtCalif, txtYear, txtClassification;
 	private ObservableList<Alumno> data;
@@ -26,22 +31,23 @@ public class MovieFx extends Application {
 		txtName = new TextField();
 		infoPane.add(lblName, 0,0);
 		infoPane.add(txtName, 1,0);
-		
 		Label lblMatricula = new Label("Matrícula");
 		txtMatricula = new TextField();
 		infoPane.add(lblMatricula, 0,1);
 		infoPane.add(txtMatricula, 1,1);
-		
 		Label lblCalif = new Label("Calificación");
 		txtCalif = new TextField();
 		infoPane.add(lblCalif, 0,2);
 		infoPane.add(txtCalif, 1,2);
-
 		contentPane.getChildren().add(infoPane);
-		
 		//List
 		data = FXCollections.observableArrayList();
 		lvAlumno = new ListView<>(data);
+		lvAlumno.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				display();
+			}
+		});
 		contentPane.getChildren().add(lvAlumno);
 		
 		//Controls
@@ -53,7 +59,23 @@ public class MovieFx extends Application {
 		
 		Button bttnSave = new Button("Actualizar");
 		controlsPane.getChildren().add(bttnSave);
-		
+
+		Button bttnSort= new Button("Sort:");
+		controlsPane.getChildren().add(bttnSort);
+
+		ComboBox<String> myComboBox = new ComboBox<String>();
+		myComboBox.getItems().addAll("BubbleSort","QuickSort","MergeSort");
+		myComboBox.setValue("BubbleSort");
+		controlsPane.getChildren().add(myComboBox);
+
+		bttnSort.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				String sortType= myComboBox.getValue();
+				sort(sortType);
+			}
+		});
+
         bttnAdd.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
                 addStudent();
@@ -65,12 +87,6 @@ public class MovieFx extends Application {
                 deleteStudent();
             }
         });
-
-        lvAlumno.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-            public void handle(MouseEvent e){
-                getData();
-            }
-        });
 		//2. Create the main scene and link it with the stage
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
@@ -79,7 +95,6 @@ public class MovieFx extends Application {
 		//3. Call the show method for the stage
 		stage.show();
 	}
-	
 	public static void main(String[] args) {
 		launch();
 	}
@@ -91,24 +106,38 @@ public class MovieFx extends Application {
         a.setCalif(Integer.parseInt(txtCalif.getText()));
         //Add the object to my list
         data.add(a);
+    }
+    private void deleteStudent(){
+        // Obtain selected item
+        Alumno a= lvAlumno.getSelectionModel().getSelectedItem();
+        // Remove it from the data
+        data.remove(a);
+        clearFields();
+    }
+    private void sort(String sortType){
+		List<Alumno> ls= lvAlumno.getItems();
+		ListaLigada ll= new ListaLigada(ls);
+		switch (sortType){
+			case "BubbleSort":
+				
+				break;
+			case "QuickSort":
+				break;
+			case "MergeSort":
+				break;
+		}
+	}
+
+	private void display(){
+		Alumno a= lvAlumno.getSelectionModel().getSelectedItem();
+		txtName.setText(a.getNombre());
+		txtMatricula.setText(a.getMatricula());
+		txtCalif.setText(Integer.toString(a.getCalif()));
+	}
+    private void clearFields(){
         //Clear the form
         txtName.setText("");
         txtCalif.setText("");
         txtMatricula.setText("");
-    }
-    private void deleteStudent(){
-        //Remove movie
-        //Alumno a = lvAlumno.getSelectionModel().getSelectedItems().get(0);
-        ObservableList<Integer> todelete= lvAlumno.getSelectionModel().getSelectedIndices();
-        for (int i=0; i<todelete.size(); i++) {
-            data.remove(todelete.get(i));
-        }
-    }
-    private void getData(){
-        Alumno a = lvAlumno.getSelectionModel().getSelectedItems().get(0);
-        txtName.setText(a.getNombre());
-        txtCalif.setText(Integer.toString(a.getCalif()));
-        txtMatricula.setText(a.getMatricula());
-
     }
 }
