@@ -10,13 +10,11 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class MovieFx extends Application {
 	private TextField txtMatricula, txtName, txtCalif, txtYear, txtClassification;
-	private ObservableList<Alumno> data;
+	private ObservableList data;
 	private ListView<Alumno> lvAlumno;
 
 	public void start(Stage stage) throws Exception {
@@ -65,8 +63,8 @@ public class MovieFx extends Application {
 		controlsPane.getChildren().add(bttnSort);
 
 		ComboBox<String> myComboBox = new ComboBox<String>();
-		myComboBox.getItems().addAll("BubbleSort","QuickSort","MergeSort");
-		myComboBox.setValue("BubbleSort");
+		myComboBox.getItems().addAll("Bogosort","QuickSort","MergeSort");
+		myComboBox.setValue("Bogosort");
 		controlsPane.getChildren().add(myComboBox);
 
 		bttnSort.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -115,18 +113,30 @@ public class MovieFx extends Application {
         data.remove(a);
         clearFields();
     }
-    private void sort(String sortType){
-		List<Alumno> ls= lvAlumno.getItems();
-		ListaLigada ll= new ListaLigada(ls);
+    private <T extends Comparable<T>> void sort(String sortType) {
+		ListaLigada<Alumno> ll= new ListaLigada<>();
+		Nodo<Alumno> primero= new Nodo<>((Alumno)data.get(0));
+		ll.setInicial(primero);
+		for (int i=1; i<=data.size(); i++){
+			ll.insertarAlUltimo((Alumno) data.get(i-1));
+		}
 		switch (sortType){
-			case "BubbleSort":
-				
+			case "Bogosort":
+				System.out.println("NA");
 				break;
 			case "QuickSort":
+				sorting.quickSort(ll,0,ll.contarElementos());
 				break;
 			case "MergeSort":
+			    try{
+					ll.mergeSort();
+				}
+			    catch (Exception e){
+					System.out.println("merge Error");
+				}
 				break;
 		}
+		data = FXCollections.observableArrayList(ll.toArrayList());
 	}
 
 	private void display(){

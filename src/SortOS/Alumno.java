@@ -27,5 +27,8 @@ public class Alumno implements Comparable<Alumno> {
 	public int compareTo(Alumno o) {
 		return matricula.compareTo(o.matricula);
 	}
+	public String toString(){
+		return nombre+", " +matricula +", " + calif;
+	}
 
 }

@@ -21,4 +21,9 @@ public class sorting {
         input.intercambiar(i + 1, last-1);
         return (i + 1);
     }
+
+    public static ListaLigada bogoSort (ListaLigada input){
+        System.out.println("Not available");
+        return input;
+    }
 }
