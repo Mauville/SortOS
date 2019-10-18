@@ -17,6 +17,7 @@ public class ListaLigada<T extends Comparable<T>> {
         return inicial == null;
     }
 
+
     public ListaLigada(List lista){
         Nodo<T> primero= new Nodo<T>((T)lista.get(0));
         setInicial(primero);
@@ -27,6 +28,7 @@ public class ListaLigada<T extends Comparable<T>> {
 
     public void insertarAlInicio(T elemento) {
         Nodo<T> aInsertar = new Nodo<>(elemento);
+
         aInsertar.setSiguiente(inicial);
         inicial = aInsertar;
     }
@@ -202,7 +204,6 @@ public class ListaLigada<T extends Comparable<T>> {
      * gnome sort
      * gravity sort
      * counting sort
-     * [FIND OTHERs]
      *
      * */
     public void bubbleSort() {
@@ -219,41 +220,38 @@ public class ListaLigada<T extends Comparable<T>> {
             }
         }
     }
-
-    private void intercambiar(int index1, int index2) {
-        System.out.println("Se intercambia " + encontrarNodoEnElndice(index1) + " con: " + encontrarNodoEnElndice(index2));
-        Nodo<T> temp = encontrarNodoEnElndice(index1);
-        T tempT = temp.getElemento();
-        Nodo<T> temp2 = encontrarNodoEnElndice(index2);
-        temp.setElemento(temp2.getElemento());
-        ;
-        temp2.setElemento(tempT);
+    public void intercambiar(int index1, int index2) {
+    	System.out.println("Se intercambia "+encontrarNodoEnElndice(index1)+" con: "+encontrarNodoEnElndice(index2));
+    	Nodo<T> temp= encontrarNodoEnElndice(index1);
+    	T tempT= temp.getElemento();
+    	Nodo<T> temp2= encontrarNodoEnElndice(index2);
+    	temp.setElemento(temp2.getElemento());
+    	temp2.setElemento(tempT);
     }
-
 
     public void selectionSort() {
-        for (int i = 0; i < contarElementos() - 1; i++) {
-            int masPequenio = i;
-            for (int j = i + 1; j < contarElementos() - 1; j++) {
-                if (encontrarNodoEnElndice(j).getElemento().compareTo(encontrarNodoEnElndice(masPequenio).getElemento()) < 0) {
-                    masPequenio = j;
-                }
-            }
-            intercambiar(masPequenio, i);
-        }
-    }
+		for(int i=0;i<contarElementos()-1;i++) {
+			int masPequenio=i;
+			for(int j=i+1;j<contarElementos()-1;j++) {
+				if (encontrarNodoEnElndice(j).getElemento().compareTo(encontrarNodoEnElndice(masPequenio).getElemento())<0) {
+					masPequenio=j;
+				}
+			}
+			intercambiar(masPequenio,i);
+		}
+	}
 
-    public void insertionSort() {
-        int i = 1;
-        while (i < contarElementos()) {
-            int j = i;
-            while (j > 0 && encontrarNodoEnElndice(j - 1).getElemento().compareTo(encontrarNodoEnElndice(j).getElemento()) > 0) {
-                intercambiar(i, j - 1);
-                j--;
-            }
-            i++;
-        }
-    }
+	public void insertionSort() {
+		int i=1;
+		while(i<contarElementos()) {
+			int j=i;
+			while (j>0 && encontrarNodoEnElndice(j-1).getElemento().compareTo(encontrarNodoEnElndice(j).getElemento())>0) {
+				intercambiar(i, j-1);
+				j--;
+			}
+			i++;
+		}
+	}
 
     public void mergeSort() throws Exception {
         inicial = mergeSort(inicial);
@@ -282,19 +280,19 @@ public class ListaLigada<T extends Comparable<T>> {
         return merge(temp1, temp2);
     }
 
-    public Nodo<T> merge(Nodo<T> a, Nodo<T> b) {
-        Nodo<T> resultado;
-        if (a == null)
-            return b;
-        if (b == null)
-            return a;
-        if (a.getElemento().compareTo(b.getElemento()) > 0) {
-            resultado = b;
-            resultado.setSiguiente(merge(a, b.getSiguiente()));
-        } else {
-            resultado = a;
-            resultado.setSiguiente(merge(resultado, b));
-        }
-        return resultado;
+    private Nodo<T> merge(Nodo<T> a, Nodo<T> b){
+    	Nodo<T> resultado;
+    	if(a== null)
+    		return b;
+    	if(b== null)
+    		return a;
+    	if (a.getElemento().compareTo(b.getElemento())>0) {
+			resultado=b;
+			resultado.setSiguiente(merge(a, b.getSiguiente()));
+		}else {
+			resultado=a;
+			resultado.setSiguiente(merge(resultado, b));
+		}
+    	return resultado;
     }
 }

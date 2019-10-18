@@ -3,6 +3,7 @@ public class Alumno implements Comparable<Alumno> {
 
 	private String nombre;
 	private String matricula;
+
 	private int calif;
 	public int getCalif() {
 		return calif;
@@ -26,4 +27,5 @@ public class Alumno implements Comparable<Alumno> {
 	public int compareTo(Alumno o) {
 		return matricula.compareTo(o.matricula);
 	}
+
 }

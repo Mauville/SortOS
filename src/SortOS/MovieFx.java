@@ -1,4 +1,5 @@
 package SortOS;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -139,5 +140,6 @@ public class MovieFx extends Application {
         txtName.setText("");
         txtCalif.setText("");
         txtMatricula.setText("");
+
     }
 }
