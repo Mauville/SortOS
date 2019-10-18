@@ -1,14 +1,17 @@
 
 package SortOS;
 public class Alumno implements Comparable<Alumno> {
-	
+
 	private String nombre;
 	private String matricula;
-public Alumno(String nombre, String matricula) {
+	private String calificacion;
+
+public Alumno(String nombre, String matricula, String calificacion) {
 		super();
 		this.nombre = nombre;
 		this.matricula = matricula;
-		
+		this.calificacion = calificacion;
+
 	}
 
 
@@ -30,4 +33,11 @@ public void setMatricula(String matricula) {
 		return matricula.compareTo(o.matricula);
 	}
 
+	public String getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(String calificacion) {
+		this.calificacion = calificacion;
+	}
 }

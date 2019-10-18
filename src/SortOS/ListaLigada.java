@@ -14,6 +14,7 @@ public class ListaLigada<T extends Comparable<T>>{
     public boolean estaVacia(){
         return  inicial==null;
     }
+
     public void insertarAlInicio(T elemento){
         Nodo<T> aInsertar= new Nodo<>(elemento);
         aInsertar.setSiguiente(inicial);
@@ -185,7 +186,6 @@ public class ListaLigada<T extends Comparable<T>>{
      * gnome sort
      * gravity sort
      * counting sort
-     * [FIND OTHERs]
      *
      * */
     public void bubbleSort() {
@@ -202,16 +202,14 @@ public class ListaLigada<T extends Comparable<T>>{
 			}
 		}
     }
-    private void intercambiar(int index1, int index2) {
+    public void intercambiar(int index1, int index2) {
     	System.out.println("Se intercambia "+encontrarNodoEnElndice(index1)+" con: "+encontrarNodoEnElndice(index2));
     	Nodo<T> temp= encontrarNodoEnElndice(index1);
     	T tempT= temp.getElemento();
     	Nodo<T> temp2= encontrarNodoEnElndice(index2);
-    	temp.setElemento(temp2.getElemento());;
+    	temp.setElemento(temp2.getElemento());
     	temp2.setElemento(tempT);
     }
-
-
 
     public void selectionSort() {
 		for(int i=0;i<contarElementos()-1;i++) {
@@ -224,7 +222,7 @@ public class ListaLigada<T extends Comparable<T>>{
 			intercambiar(masPequenio,i);
 		}
 	}
-	
+
 	public void insertionSort() {
 		int i=1;
 		while(i<contarElementos()) {
@@ -264,7 +262,7 @@ public class ListaLigada<T extends Comparable<T>>{
     	return merge(temp1, temp2);
     }
 
-    public Nodo<T> merge(Nodo<T> a, Nodo<T> b){
+    private Nodo<T> merge(Nodo<T> a, Nodo<T> b){
     	Nodo<T> resultado;
     	if(a== null)
     		return b;
@@ -279,3 +277,4 @@ public class ListaLigada<T extends Comparable<T>>{
 		}
     	return resultado;
     }
+}
