@@ -50,21 +50,18 @@ public class MovieFx extends Application {
 		contentPane.getChildren().add(lvAlumno);
 		
 		//Controls
-		Button bttnAdd = new Button("Agregar");
+		Button bttnAdd = new Button("Add");
 		controlsPane.getChildren().add(bttnAdd);
 		
-		Button bttnDelete = new Button("Borrar");
+		Button bttnDelete = new Button("Delete");
 		controlsPane.getChildren().add(bttnDelete);
-		
-		Button bttnSave = new Button("Actualizar");
-		controlsPane.getChildren().add(bttnSave);
 
-		Button bttnSort= new Button("Sort:");
+		Button bttnSort= new Button("Sort");
 		controlsPane.getChildren().add(bttnSort);
 
 		ComboBox<String> myComboBox = new ComboBox<String>();
 		myComboBox.getItems().addAll("Bogosort","QuickSort","MergeSort");
-		myComboBox.setValue("Bogosort");
+		myComboBox.setValue("QuickSort");
 		controlsPane.getChildren().add(myComboBox);
 
 		bttnSort.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -89,7 +86,7 @@ public class MovieFx extends Application {
 		//2. Create the main scene and link it with the stage
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setWidth(500);
+		stage.setWidth(700);
 		stage.setHeight(500);
 		//3. Call the show method for the stage
 		stage.show();
@@ -114,29 +111,44 @@ public class MovieFx extends Application {
         clearFields();
     }
     private <T extends Comparable<T>> void sort(String sortType) {
+		System.out.println(Arrays.deepToString(data.toArray()));
 		ListaLigada<Alumno> ll= new ListaLigada<>();
+
 		Nodo<Alumno> primero= new Nodo<>((Alumno)data.get(0));
 		ll.setInicial(primero);
-		for (int i=1; i<=data.size(); i++){
-			ll.insertarAlUltimo((Alumno) data.get(i-1));
+		for (int i=1; i<=data.size()-1; i++){
+			ll.insertarAlUltimo((Alumno) data.get(i));
 		}
+		ll.imprimeLista();
+
 		switch (sortType){
 			case "Bogosort":
 				System.out.println("NA");
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Tercer Parcial");
+				alert.setHeaderText("Operación no disponible");
+				alert.setContentText("Función disponible en la versión de paga");
+				alert.showAndWait();
 				break;
 			case "QuickSort":
-				sorting.quickSort(ll,0,ll.contarElementos());
+				//sorting.quickSort(ll,0,ll.contarElementos()-1);
+				ll.quickSort();
+				ll.imprimeLista();
 				break;
 			case "MergeSort":
-			    try{
-					ll.mergeSort();
-				}
-			    catch (Exception e){
-					System.out.println("merge Error");
-				}
+			    Alert alertM = new Alert(Alert.AlertType.INFORMATION);
+			    alertM.setTitle("Tercer Parcial");
+			    alertM.setHeaderText("Operación no disponible");
+			    alertM.setContentText("Función disponible en la versión de paga");
+			    alertM.showAndWait();
 				break;
 		}
-		data = FXCollections.observableArrayList(ll.toArrayList());
+		System.out.println("MOVE IT");
+		ll.imprimeLista();
+		data.clear();
+		data.setAll(FXCollections.observableArrayList(ll.toArrayList()));
+
+
 	}
 
 	private void display(){
@@ -153,3 +165,46 @@ public class MovieFx extends Application {
 
     }
 }
+
+/*
+*
+* public void mergeSort(){
+		inicial=mergeSortInterno(inicial);
+	}
+
+	private Nodo<T> mergeSortInterno(Nodo<T> inicial) {
+		Nodo<T> inicioAnterior= inicial;
+		int mid= contarElementos(inicial)/2;
+		System.out.println("Contar elementos: "+mid+" "+inicial.getElemento());
+		if(inicial.getSiguiente()==null) {
+			return inicial;
+		}
+
+		while(mid-1>0) {
+			inicioAnterior=inicioAnterior.getSiguiente();
+			mid--;
+		}
+		Nodo<T> nuevoInicio=inicioAnterior.getSiguiente();
+		inicioAnterior.setSiguiente(null);
+		inicioAnterior=inicial;
+		Nodo<T> temp1= mergeSortInterno(inicioAnterior);
+		Nodo<T> temp2= mergeSortInterno(nuevoInicio);
+		return merge(temp1,temp2);
+	}
+
+	public Nodo<T> merge(Nodo<T> a, Nodo<T> b){
+		Nodo<T> resultado;
+		if (a==null)
+			return b;
+		if(b==null)
+			return a;
+		if(a.getElemento().compareTo(b.getElemento())>0) {
+			resultado=b;
+			resultado.setSiguiente(merge(a,b.getSiguiente()));
+		}else {
+			resultado=a;
+			resultado.setSiguiente(merge(a.getSiguiente(),b));
+		}
+		return resultado;
+	}
+* */

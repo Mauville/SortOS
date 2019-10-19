@@ -205,7 +205,7 @@ public class ListaLigada<T extends Comparable<T>> {
      * counting sort
      *
      * */
-    public void bubbleSort() {
+    public void quickSort() {
         for (int i = 0; i < contarElementos() - 1; i++) {
             boolean intercambiado = false;
             for (int j = 0; j < contarElementos() - 1; j++) {
@@ -252,7 +252,7 @@ public class ListaLigada<T extends Comparable<T>> {
             i++;
         }
     }
-
+/*
     public ArrayList<T> toArrayList() {
         ArrayList<T> arr = new ArrayList<>();
         while (inicial.getSiguiente() != null) {
@@ -260,6 +260,18 @@ public class ListaLigada<T extends Comparable<T>> {
             inicial= inicial.getSiguiente();
         }
 
+        return arr;
+    }
+
+ */
+
+    public ArrayList<T> toArrayList(){
+        ArrayList<T> arr= new ArrayList<>();
+        Nodo<T> temp= inicial;
+        while(temp!=null){
+            arr.add(temp.getElemento());
+            temp=temp.getSiguiente();
+        }
         return arr;
     }
 
@@ -277,8 +289,8 @@ public class ListaLigada<T extends Comparable<T>> {
         Nodo<T> inicioAnterior = inicial;
         if (inicioAnterior.getSiguiente() == null)
             return inicial;
-        while (mid - 1 > 0) {
 
+        while (mid - 1 > 0) {
             inicioAnterior = inicioAnterior.getSiguiente();
             mid--;
         }

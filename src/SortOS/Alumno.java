@@ -25,7 +25,13 @@ public class Alumno implements Comparable<Alumno> {
 	}
 	@Override
 	public int compareTo(Alumno o) {
-		return matricula.compareTo(o.matricula);
+		//return calif.compareTo(o.calif);
+		if (calif==o.calif){
+			return 0;
+		}else if(calif<o.calif){
+			return -1;
+		}else
+			return  1;
 	}
 	public String toString(){
 		return nombre+", " +matricula +", " + calif;

@@ -10,15 +10,18 @@ public class sorting {
     }
 
     private static int partition(ListaLigada<Alumno> input, int initial, int last) {
-        int pivot = (int) input.encontrarNodoEnElndice(input.contarElementos() - 1).getElemento().getCalif();
+        int pivot = (int) input.encontrarNodoEnElndice(last).getElemento().getCalif();
         int i = initial - 1;
-        for (int j = initial; j <= last - 1; j++) {
-            if ((int) input.encontrarNodoEnElndice(j).getElemento().getCalif() < pivot) {
+        for (int j = initial; j < last - 1; j++) {
+            if ((int) input.encontrarNodoEnElndice(j).getElemento().getCalif() <= pivot) {
                 i++;
                 input.intercambiar(i, j);
             }
         }
-        input.intercambiar(i + 1, last-1);
+        //000       011     110
+        //001       100     111
+        //010       101
+        input.intercambiar(i + 1, last);
         return (i + 1);
     }
 
